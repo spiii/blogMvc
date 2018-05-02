@@ -1,11 +1,11 @@
 using System;
-using (ENTER THE FULL NAMESPACE TO YOUR MODELS);
+using blogData;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private DefaultModel _context;
+    private blogDbEntities _context;
 
-    public UnitOfWork(DefaultModel context)
+    public UnitOfWork(blogDbEntities context)
     {
         _context = context;
     }
@@ -13,9 +13,34 @@ public class UnitOfWork : IUnitOfWork
 	//Delete this default constructor if using an IoC container
 	public UnitOfWork()
 	{
-		_context = new DefaultModel();
+		_context = new blogDbEntities();
 	}
 	
+    public IRatingRepository ratings
+    {
+        get { return new RatingRepository(_context); }
+    }
+
+    public IProseRepository proses
+    {
+        get { return new ProseRepository(_context); }
+    }
+
+    public IPostRepository posts
+    {
+        get { return new PostRepository(_context); }
+    }
+
+    public ILinkRepository links
+    {
+        get { return new LinkRepository(_context); }
+    }
+
+    public IPictureRepository pictures
+    {
+        get { return new PictureRepository(_context); }
+    }
+
     
     public void Save()
     {

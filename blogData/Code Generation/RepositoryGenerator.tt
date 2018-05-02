@@ -12,8 +12,8 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
 <#  //Set these options
-    string targetNamespace = "(ENTER THE FULL NAMESPACE TO YOUR MODELS)";
-    string efContext = "DefaultModel"; //If Context is not in the same namespace rename this to the name of the context
+    string targetNamespace = "blogData";
+    string efContext = "blogDbEntities"; //If Context is not in the same namespace rename this to the name of the context
 
     IServiceProvider serviceProvider = (IServiceProvider)this.Host;
     DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 

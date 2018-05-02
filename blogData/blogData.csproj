@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,32 +49,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Code Generation\IRepository.cs">
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Code Generation\IUnitofWork.cs">
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Code Generation\Repository.cs">
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Code Generation\RepositoryGenerator.cs">
+    <Compile Include="blogdb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+      <DependentUpon>blogdb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code Generation\UnitofWork.cs">
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    <Compile Include="blogdb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>blogdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="blogdb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>blogdb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="link.cs">
+      <DependentUpon>blogdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="picture.cs">
+      <DependentUpon>blogdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="post.cs">
+      <DependentUpon>blogdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="prose.cs">
+      <DependentUpon>blogdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rating.cs">
+      <DependentUpon>blogdb.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="blogdb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>blogdb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="blogdb.edmx.diagram">
+      <DependentUpon>blogdb.edmx</DependentUpon>
+    </None>
     <None Include="Code Generation\T4Helper.ttinclude" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="blogdb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>blogdb.Context.cs</LastGenOutput>
+      <DependentUpon>blogdb.edmx</DependentUpon>
+    </Content>
+    <Content Include="blogdb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>blogdb.edmx</DependentUpon>
+      <LastGenOutput>blogdb.cs</LastGenOutput>
+    </Content>
     <Content Include="Code Generation\RepositoryGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RepositoryGenerator.cs</LastGenOutput>
