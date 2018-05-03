@@ -34,7 +34,7 @@ namespace blog.Infrastructure
             // kernel.Bind<IProductRepository>().To<EFProductRepository>();
             Mock<IPostRepository> mock = new Mock<IPostRepository>();
             List<Post> posts = new List<Post>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
                 posts.Add(new Post { title = $"title {i}", idPost = i });
             }

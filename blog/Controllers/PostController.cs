@@ -31,7 +31,7 @@ namespace blog.Controllers
                 {
                     currentPage = page,
                     itemsPerPage = pageSize,
-                    totalPages = repository.posts.Count()
+                    totalPages = repository.posts.Count() / pageSize
                 }
             };
             return View(model);
