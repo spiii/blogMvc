@@ -25,7 +25,8 @@ namespace blog.Controllers
             PostsListViewModel model = new PostsListViewModel
             {
                 posts = repository.posts
-                .Where(p => group == null || p.groups.Select(g => g.groupName).Contains(group))
+                .Where(p => group == null || 
+                (p.groups != null && p.groups.Select(g => g.groupName).Contains(group)))
                 .OrderBy(p => p.idPost)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
