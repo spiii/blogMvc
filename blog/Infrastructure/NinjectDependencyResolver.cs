@@ -14,39 +14,34 @@ namespace blog.Infrastructure
     {
         private IKernel kernel;
 
-        public NinjectDependencyResolver(IKernel kernel)
+        public NinjectDependencyResolver(IKernel kernelParam)
         {
-            this.kernel = kernel;
+            kernel = kernelParam;
+            AddBindings();
         }
 
         public object GetService(Type serviceType)
         {
-            throw new NotImplementedException();
+            return kernel.TryGet(serviceType);
         }
-
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            throw new NotImplementedException();
+            return kernel.GetAll(serviceType);
         }
 
         private void AddBindings()
         {
             // kernel.Bind<IProductRepository>().To<EFProductRepository>();
             Mock<IPostRepository> mock = new Mock<IPostRepository>();
-            mock.Setup(m => m.posts).Returns(new List<Post>
+            List<Post> posts = new List<Post>();
+            for (int i = 0; i < 10; i++)
             {
-                new Post{title = "title 1"},
-                new Post{title = "title 2"},
-                new Post{title = "title 3"},
-                new Post{title = "title 4"},
-                new Post{title = "title 5"},
-                new Post{title = "title 6"},
-                new Post{title = "title 7"},
-                new Post{title = "title 8"},
-                new Post{title = "title 9"},
-            });
+                posts.Add(new Post { title = $"title {i}", idPost = i });
+            }
 
-            // Bing post repository to mock.
+            mock.Setup(m => m.posts).Returns(posts);
+
+            // Bind post repository to mock.
             kernel.Bind<IPostRepository>().ToConstant(mock.Object);
         }
     }
