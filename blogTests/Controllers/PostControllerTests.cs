@@ -25,7 +25,7 @@ namespace blog.Controllers.Tests
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;
             // Act
-            PostsListViewModel result = (PostsListViewModel)controller.List(2).Model;
+            PostsListViewModel result = (PostsListViewModel)controller.List(null,2).Model;
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
             Assert.AreEqual(pageInfo.currentPage, 2);
@@ -43,7 +43,7 @@ namespace blog.Controllers.Tests
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;
             // Act
-            PostsListViewModel result = (PostsListViewModel)controller.List(2).Model;
+            PostsListViewModel result = (PostsListViewModel)controller.List(null,2).Model;
             // Assert
             Post[] _posts = result.posts.ToArray();
             Assert.IsTrue(_posts.Length == 2);

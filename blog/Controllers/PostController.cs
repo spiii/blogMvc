@@ -1,4 +1,5 @@
 ﻿using blog.Models;
+using blogBl;
 using blogBl.Abstract;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,12 @@ namespace blog.Controllers
             this.repository = postRepository;
         }
 
-        public ViewResult List(int page = 1)
+        public ViewResult List(string group, int page = 1)
         {
             PostsListViewModel model = new PostsListViewModel
             {
                 posts = repository.posts
+                .Where(p => group == null || p.groups.Select(g => g.groupName).Contains(group))
                 .OrderBy(p => p.idPost)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
@@ -32,7 +34,8 @@ namespace blog.Controllers
                     currentPage = page,
                     itemsPerPage = pageSize,
                     totalPages = repository.posts.Count() / pageSize
-                }
+                },
+                currentGroup = new Group { groupName = group, idGroup = 0 }
             };
             return View(model);
         }

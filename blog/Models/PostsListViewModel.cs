@@ -10,7 +10,7 @@ namespace blog.Models
     public class PostsListViewModel
     {
         public IEnumerable<Post> posts;
-
         public PagingInfo PagingInfo { get; set; }
+        public Group currentGroup { get; set; }
     }
 }
