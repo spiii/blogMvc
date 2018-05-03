@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace blog.helpers.Tests
 {
     [TestFixture()]
-    public class mainHelperTests
+    public class MainHelperTests
     {
         [TestCase(4,true,"D")]
         [TestCase(4,false,"d")]
