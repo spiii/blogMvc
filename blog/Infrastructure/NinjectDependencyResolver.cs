@@ -36,21 +36,28 @@ namespace blog.Infrastructure
             Mock<IPostRepository> mock = new Mock<IPostRepository>();
 
             List<Group> groups = new List<Group>();
-            for (int i = 0; i < 3; i++)
-            {
-                groups.Add(new Group { groupName = $"group {MainHelper.number2String(i+1,true)}", idGroup = i });
-            }
+            List<Group> groupsSec = new List<Group>();
+            createGroups(groups, 0, 3);
+            createGroups(groupsSec, 4, 5);
 
             List<Post> posts = new List<Post>();
             for (int i = 0; i < 30; i++)
             {
-                posts.Add(new Post { title = $"Post title {i}", idPost = i , groups=groups});
+                posts.Add(new Post { title = $"Post title {i}", idPost = i, groups = i % 2 == 0 ? groups : groupsSec });
             }
 
             mock.Setup(m => m.posts).Returns(posts);
 
             // Bind post repository to mock.
             kernel.Bind<IPostRepository>().ToConstant(mock.Object);
+        }
+
+        private static void createGroups(List<Group> groups, int start, int end)
+        {
+            for (int i = start; i < end; i++)
+            {
+                groups.Add(new Group { groupName = $"group {MainHelper.number2String(i + 1, true)}", idGroup = i });
+            }
         }
     }
 }

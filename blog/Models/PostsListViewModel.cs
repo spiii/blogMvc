@@ -10,7 +10,12 @@ namespace blog.Models
     public class PostsListViewModel
     {
         public IEnumerable<Post> posts;
-
         public PagingInfo PagingInfo { get; set; }
+        public Group currentGroup { get; set; }
+
+        internal void updateTotalPages()
+        {
+            this.PagingInfo.totalPages = this.posts.Count() / PagingInfo.itemsPerPage;
+        }
     }
 }
