@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace blogData
+namespace blogBl.Abstract
 {
-    public class Class1
+
+    public interface IPostRepository
     {
+        IEnumerable<Post> posts { get; }
     }
+
 }

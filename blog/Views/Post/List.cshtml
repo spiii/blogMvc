@@ -1,0 +1,15 @@
+﻿@model blog.Models.PostsListViewModel
+@{
+	ViewBag.Title = "Posts";
+}
+@foreach (var p in Model.posts)
+{
+	@Html.Partial("Posts", p)
+}
+
+<div class="btn-group pull-right">
+	@Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+	new { page = x, group = Model.currentGroup.groupName }))
+</div>
+
+

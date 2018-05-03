@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace blogBl
 {
-    public class Class1
+    public class Post
     {
+        public int idPost { get; set; }
+        public string title { get; set; }
+        public List<Group> groups { get; set; }
+
     }
 }

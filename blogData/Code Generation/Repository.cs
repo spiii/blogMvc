@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using (ENTER THE FULL NAMESPACE TO YOUR MODELS);
+using blogData;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly DbSet<TEntity> _entities;
 
-    protected Repository(DefaultModel context)
+    protected Repository(blogDbEntities context)
     {
         _entities = context.Set<TEntity>();
     }
