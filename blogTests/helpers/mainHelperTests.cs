@@ -14,7 +14,7 @@ namespace blog.helpers.Tests
         [TestCase(4,true,"D")]
         [TestCase(4,false,"d")]
         [TestCase(5,false,"e")]
-        public void Number2StringTest(int position,bool isCap,string result)
+        public void number2StringTest(int position,bool isCap,string result)
         {
             // Act
             string letter=MainHelper.number2String(position, isCap);
