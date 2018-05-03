@@ -16,11 +16,6 @@ public class UnitOfWork : IUnitOfWork
 		_context = new blogDbEntities();
 	}
 	
-    public IRatingRepository ratings
-    {
-        get { return new RatingRepository(_context); }
-    }
-
     public IProseRepository proses
     {
         get { return new ProseRepository(_context); }
@@ -31,14 +26,19 @@ public class UnitOfWork : IUnitOfWork
         get { return new PostRepository(_context); }
     }
 
+    public IPictureRepository pictures
+    {
+        get { return new PictureRepository(_context); }
+    }
+
     public ILinkRepository links
     {
         get { return new LinkRepository(_context); }
     }
 
-    public IPictureRepository pictures
+    public IRatingRepository ratings
     {
-        get { return new PictureRepository(_context); }
+        get { return new RatingRepository(_context); }
     }
 
     

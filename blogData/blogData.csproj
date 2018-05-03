@@ -64,6 +64,53 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>blogdb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Code Generation\ILinkRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IPictureRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IPostRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IProseRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IRatingRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IUnitofWork.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\LinkRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\PictureRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\PostRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\ProseRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\RatingRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\Repository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\RepositoryGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\UnitofWork.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="link.cs">
       <DependentUpon>blogdb.tt</DependentUpon>
     </Compile>
