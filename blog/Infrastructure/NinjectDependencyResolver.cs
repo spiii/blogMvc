@@ -1,4 +1,5 @@
-﻿using blogBl;
+﻿using blog.helpers;
+using blogBl;
 using blogBl.Abstract;
 using Moq;
 using Ninject;
@@ -33,10 +34,17 @@ namespace blog.Infrastructure
         {
             // kernel.Bind<IProductRepository>().To<EFProductRepository>();
             Mock<IPostRepository> mock = new Mock<IPostRepository>();
+
+            List<Group> groups = new List<Group>();
+            for (int i = 0; i < 3; i++)
+            {
+                groups.Add(new Group { groupName = $"group {MainHelper.number2String(i+1,true)}", idGroup = i });
+            }
+
             List<Post> posts = new List<Post>();
             for (int i = 0; i < 30; i++)
             {
-                posts.Add(new Post { title = $"title {i}", idPost = i });
+                posts.Add(new Post { title = $"Post title {i}", idPost = i , groups=groups});
             }
 
             mock.Setup(m => m.posts).Returns(posts);

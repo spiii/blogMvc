@@ -10,6 +10,7 @@ namespace blogBl
     {
         public int idPost { get; set; }
         public string title { get; set; }
+        public List<Group> groups { get; set; }
 
     }
 }

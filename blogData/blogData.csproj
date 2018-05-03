@@ -64,6 +64,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>blogdb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Code Generation\GroupRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code Generation\IGroupRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Code Generation\ILinkRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -110,6 +116,9 @@
     </Compile>
     <Compile Include="Code Generation\UnitofWork.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="group.cs">
+      <DependentUpon>blogdb.tt</DependentUpon>
     </Compile>
     <Compile Include="link.cs">
       <DependentUpon>blogdb.tt</DependentUpon>

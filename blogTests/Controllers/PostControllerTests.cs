@@ -30,7 +30,7 @@ namespace blog.Controllers.Tests
             PagingInfo pageInfo = result.PagingInfo;
             Assert.AreEqual(pageInfo.currentPage, 2);
             Assert.AreEqual(pageInfo.itemsPerPage, 3);
-            Assert.AreEqual(pageInfo.totalPages, 5);
+            Assert.AreEqual(pageInfo.totalPages, 1);
         }
 
 
