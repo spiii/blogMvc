@@ -1,4 +1,5 @@
-                
+
+    
 using blogData;
               
 public class ProseRepository : Repository<prose>, IProseRepository

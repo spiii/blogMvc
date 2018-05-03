@@ -17,7 +17,7 @@ namespace blogData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public picture()
         {
-            this.post = new HashSet<post>();
+            this.post = new HashSet<Post>();
         }
     
         public int idPicture { get; set; }
@@ -30,6 +30,6 @@ namespace blogData
         public int width { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<post> post { get; set; }
+        public virtual ICollection<Post> post { get; set; }
     }
 }

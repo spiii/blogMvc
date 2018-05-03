@@ -19,6 +19,6 @@ namespace blogData
         public int idPost { get; set; }
         public int rate { get; set; }
     
-        public virtual post post { get; set; }
+        public virtual Post post { get; set; }
     }
 }

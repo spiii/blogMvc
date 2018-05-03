@@ -12,10 +12,10 @@ namespace blogData
     using System;
     using System.Collections.Generic;
     
-    public partial class post
+    public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public post()
+        public Post()
         {
             this.link = new HashSet<link>();
             this.rating = new HashSet<rating>();

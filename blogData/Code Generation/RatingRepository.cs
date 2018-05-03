@@ -1,5 +1,4 @@
-
-    
+                
 using blogData;
               
 public class RatingRepository : Repository<rating>, IRatingRepository
