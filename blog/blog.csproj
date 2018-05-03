@@ -177,6 +177,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="helpers\MainHelper.cs" />
     <Compile Include="helpers\PagingHelpers.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Post\List.cshtml" />
     <Content Include="Views\Shared\Posts.cshtml" />
+    <Content Include="Views\Shared\Groups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
