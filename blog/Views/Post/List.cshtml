@@ -4,14 +4,10 @@
 }
 @foreach (var p in Model.posts)
 {
-	<div>
-		<h3>@p.title</h3>
-		<h4>@p.idPost</h4>
-		
-	</div>
+	@Html.Partial("Posts", p)
 }
 
-<div class="pager">
+<div class="btn-group pull-right">
 	@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
 </div>
 
