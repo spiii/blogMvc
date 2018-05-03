@@ -12,7 +12,7 @@ namespace blog.Controllers
     {
 
         private IPostRepository repository;
-        public int PageSize = 4;
+        public int PageSize = 5;
 
         public PostController(IPostRepository postRepository)
         {
@@ -31,7 +31,8 @@ namespace blog.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.posts.Count()
+                    TotalItems = repository.posts.Count(),
+                    TotalPages = repository.posts.Count()%PageSize
                 }
             };
             return View(model);
