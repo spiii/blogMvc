@@ -13,12 +13,12 @@ namespace blog.HtmlHelpers
         Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            for (int i = 1; i <= pagingInfo.TotalPages; i++)
+            for (int i = 1; i <= pagingInfo.totalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
-                if (i == pagingInfo.CurrentPage)
+                if (i == pagingInfo.currentPage)
                 {
                     tag.AddCssClass("selected");
                     tag.AddCssClass("btn-primary");

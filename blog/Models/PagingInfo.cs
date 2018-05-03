@@ -2,9 +2,8 @@
 {
     public class PagingInfo
     {
-        public int CurrentPage { get; set; }
-        public int ItemsPerPage { get; set; }
-        public int TotalItems { get; set; }
-        public int TotalPages { get; set; }
+        public int currentPage { get; set; }
+        public int itemsPerPage { get; set; }
+        public int totalPages { get; set; }
     }
 }

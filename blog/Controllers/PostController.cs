@@ -12,7 +12,7 @@ namespace blog.Controllers
     {
 
         private IPostRepository repository;
-        public int PageSize = 5;
+        public int pageSize = 5;
 
         public PostController(IPostRepository postRepository)
         {
@@ -25,14 +25,13 @@ namespace blog.Controllers
             {
                 posts = repository.posts
                 .OrderBy(p => p.idPost)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize),
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize),
                 PagingInfo = new PagingInfo
                 {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = repository.posts.Count(),
-                    TotalPages = repository.posts.Count()%PageSize
+                    currentPage = page,
+                    itemsPerPage = pageSize,
+                    totalPages = repository.posts.Count()
                 }
             };
             return View(model);

@@ -1,20 +1,18 @@
 ﻿@model blog.Models.PostsListViewModel
-
 @{
 	ViewBag.Title = "Posts";
-	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Post List</h2>
-
-
 @foreach (var p in Model.posts)
 {
-	@Html.Partial("ProductSummary", p)
+	<div>
+		<h3>@p.title</h3>
+		<h4>@p.idPost</h4>
+		
+	</div>
 }
 
 <div class="pager">
-	@Html.pageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+	@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
 </div>
 
 
