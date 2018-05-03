@@ -5,12 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="blogDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="idGroup" />
+          </Key>
+          <Property Name="idGroup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varbinary" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="link">
           <Key>
             <PropertyRef Name="idLink" />
           </Key>
           <Property Name="idLink" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="timestamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="idPost" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapGroupPost' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="mapGroupPost">
+          <Key>
+            <PropertyRef Name="idGroup" />
+            <PropertyRef Name="idPost" />
+          </Key>
+          <Property Name="idGroup" Type="int" Nullable="false" />
           <Property Name="idPost" Type="int" Nullable="false" />
         </EntityType>
         <!--Während der Generierung sind Fehler aufgetreten:
@@ -93,6 +110,30 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
               <PropertyRef Name="idPost" />
             </Principal>
             <Dependent Role="link">
+              <PropertyRef Name="idPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mapGroupPost_group">
+          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="mapGroupPost" Type="Self.mapGroupPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="idGroup" />
+            </Principal>
+            <Dependent Role="mapGroupPost">
+              <PropertyRef Name="idGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mapGroupPost_post">
+          <End Role="post" Type="Self.post" Multiplicity="1" />
+          <End Role="mapGroupPost" Type="Self.mapGroupPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="idPost" />
+            </Principal>
+            <Dependent Role="mapGroupPost">
               <PropertyRef Name="idPost" />
             </Dependent>
           </ReferentialConstraint>
@@ -182,11 +223,18 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="blogDbModelStoreContainer">
+          <EntitySet Name="group" EntityType="Self.group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="link" EntityType="Self.link" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="picture" EntityType="Self.picture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="prose" EntityType="Self.prose" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mapGroupPost" EntityType="Self.mapGroupPost" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [mapGroupPost].[idGroup] AS [idGroup], 
+    [mapGroupPost].[idPost] AS [idPost]
+    FROM [dbo].[mapGroupPost] AS [mapGroupPost]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="mapLinkPost" EntityType="Self.mapLinkPost" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [mapLinkPost].[idLink] AS [idLink], 
@@ -208,6 +256,14 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <AssociationSet Name="FK_link_post" Association="Self.FK_link_post">
             <End Role="post" EntitySet="post" />
             <End Role="link" EntitySet="link" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mapGroupPost_group" Association="Self.FK_mapGroupPost_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="mapGroupPost" EntitySet="mapGroupPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mapGroupPost_post" Association="Self.FK_mapGroupPost_post">
+            <End Role="post" EntitySet="post" />
+            <End Role="mapGroupPost" EntitySet="mapGroupPost" />
           </AssociationSet>
           <AssociationSet Name="FK_mapLinkPost_link" Association="Self.FK_mapLinkPost_link">
             <End Role="link" EntitySet="link" />
@@ -268,6 +324,11 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
             <End Role="post" EntitySet="post" />
             <End Role="prose" EntitySet="prose" />
           </AssociationSet>
+          <EntitySet Name="group" EntityType="blogDbModel.group" />
+          <AssociationSet Name="mapGroupPost" Association="blogDbModel.mapGroupPost">
+            <End Role="group" EntitySet="group" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="link">
           <Key>
@@ -306,6 +367,7 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <NavigationProperty Name="link1" Relationship="blogDbModel.mapLinkPost" FromRole="post" ToRole="link" />
           <NavigationProperty Name="picture" Relationship="blogDbModel.mapPicturePost" FromRole="post" ToRole="picture" />
           <NavigationProperty Name="prose" Relationship="blogDbModel.mapProsePost" FromRole="post" ToRole="prose" />
+          <NavigationProperty Name="group" Relationship="blogDbModel.mapGroupPost" FromRole="post" ToRole="group" />
         </EntityType>
         <EntityType Name="prose">
           <Key>
@@ -364,6 +426,18 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
         <Association Name="mapProsePost">
           <End Type="blogDbModel.post" Role="post" Multiplicity="*" />
           <End Type="blogDbModel.prose" Role="prose" Multiplicity="*" />
+        </Association>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="idGroup" />
+          </Key>
+          <Property Name="idGroup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="Binary" Nullable="false" MaxLength="100" FixedLength="false" />
+          <NavigationProperty Name="post" Relationship="blogDbModel.mapGroupPost" FromRole="group" ToRole="post" />
+        </EntityType>
+        <Association Name="mapGroupPost">
+          <End Type="blogDbModel.group" Role="group" Multiplicity="*" />
+          <End Type="blogDbModel.post" Role="post" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -448,6 +522,22 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
             </EndProperty>
             <EndProperty Name="post">
               <ScalarProperty Name="idPost" ColumnName="idPost" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="group">
+            <EntityTypeMapping TypeName="blogDbModel.group">
+              <MappingFragment StoreEntitySet="group">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idGroup" ColumnName="idGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="mapGroupPost" TypeName="blogDbModel.mapGroupPost" StoreEntitySet="mapGroupPost">
+            <EndProperty Name="post">
+              <ScalarProperty Name="idPost" ColumnName="idPost" />
+            </EndProperty>
+            <EndProperty Name="group">
+              <ScalarProperty Name="idGroup" ColumnName="idGroup" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

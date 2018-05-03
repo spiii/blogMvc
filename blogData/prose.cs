@@ -17,7 +17,7 @@ namespace blogData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public prose()
         {
-            this.post = new HashSet<Post>();
+            this.post = new HashSet<post>();
         }
     
         public int idProse { get; set; }
@@ -28,6 +28,6 @@ namespace blogData
         public string text4 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> post { get; set; }
+        public virtual ICollection<post> post { get; set; }
     }
 }

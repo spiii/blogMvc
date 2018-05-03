@@ -41,6 +41,11 @@ public class UnitOfWork : IUnitOfWork
         get { return new RatingRepository(_context); }
     }
 
+    public IGroupRepository groups
+    {
+        get { return new GroupRepository(_context); }
+    }
+
     
     public void Save()
     {

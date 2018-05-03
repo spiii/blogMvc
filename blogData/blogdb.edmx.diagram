@@ -15,6 +15,8 @@
         <AssociationConnector Association="blogDbModel.mapLinkPost" />
         <AssociationConnector Association="blogDbModel.mapPicturePost" />
         <AssociationConnector Association="blogDbModel.mapProsePost" />
+        <EntityTypeShape EntityType="blogDbModel.group" Width="1.5" PointX="0.75" PointY="7.375" />
+        <AssociationConnector Association="blogDbModel.mapGroupPost" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

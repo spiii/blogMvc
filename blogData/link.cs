@@ -17,15 +17,15 @@ namespace blogData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public link()
         {
-            this.post1 = new HashSet<Post>();
+            this.post1 = new HashSet<post>();
         }
     
         public int idLink { get; set; }
         public System.DateTime timestamp { get; set; }
         public int idPost { get; set; }
     
-        public virtual Post post { get; set; }
+        public virtual post post { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> post1 { get; set; }
+        public virtual ICollection<post> post1 { get; set; }
     }
 }

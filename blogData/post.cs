@@ -12,16 +12,17 @@ namespace blogData
     using System;
     using System.Collections.Generic;
     
-    public partial class Post
+    public partial class post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Post()
+        public post()
         {
             this.link = new HashSet<link>();
             this.rating = new HashSet<rating>();
             this.link1 = new HashSet<link>();
             this.picture = new HashSet<picture>();
             this.prose = new HashSet<prose>();
+            this.group = new HashSet<group>();
         }
     
         public int idPost { get; set; }
@@ -39,5 +40,7 @@ namespace blogData
         public virtual ICollection<picture> picture { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<prose> prose { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<group> group { get; set; }
     }
 }

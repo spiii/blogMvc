@@ -1,7 +1,7 @@
                 
 using blogData;
               
-public class PostRepository : Repository<Post>, IPostRepository
+public class PostRepository : Repository<post>, IPostRepository
 {
     private blogDbEntities _context;
 

@@ -12,13 +12,18 @@ namespace blogData
     using System;
     using System.Collections.Generic;
     
-    public partial class rating
+    public partial class group
     {
-        public int idRating { get; set; }
-        public System.DateTime timestamp { get; set; }
-        public int idPost { get; set; }
-        public int rate { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public group()
+        {
+            this.post = new HashSet<post>();
+        }
     
-        public virtual post post { get; set; }
+        public int idGroup { get; set; }
+        public byte[] name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<post> post { get; set; }
     }
 }
