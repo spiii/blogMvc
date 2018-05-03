@@ -13,7 +13,7 @@ namespace blog.Controllers
     {
 
         private IPostRepository repository;
-        public int pageSize = 2;
+        public int pageSize = 4;
 
         public PostController(IPostRepository postRepository)
         {
