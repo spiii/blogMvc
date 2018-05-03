@@ -19,10 +19,9 @@ namespace blog.HtmlHelpers.Tests
          
             PagingInfo pagingInfo = new PagingInfo
             {
-                CurrentPage = 2,
-                TotalItems = 28,
-                ItemsPerPage = 10,
-                TotalPages = 3
+                currentPage = 2,
+                totalPages = 3,
+                itemsPerPage = 10
             };
 
             Func<int, string> pageUrlDelegate = i => "Page" + i;
