@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<string>
 
-@Html.ActionLink("Home", "List", "Product", null,
+@Html.ActionLink("Home", "List", "Post", null,
 new { @class = "btn btn-block btn-default btn-lg" })
 
 
@@ -8,9 +8,9 @@ new { @class = "btn btn-block btn-default btn-lg" })
 {
 	@Html.RouteLink(link, new
 	{
-		controller = "Product",
+		controller = "Post",
 		action = "List",
-		category = link,
+		group = link,
 		page = 1
 	}, new
 	{

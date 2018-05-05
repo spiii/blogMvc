@@ -16,13 +16,13 @@ namespace blog.Controllers
             this.repository = postRepository;
         }
 
-        // GET: Group
+        // GET: Menue
         public PartialViewResult Menue()
         {
             IEnumerable<string> groups = this.repository.posts
-                .SelectMany(x => x.groups.Select(y => y.groupName)
+                .SelectMany(x => x.groups.Select(y => y.groupName))
                 .Distinct()
-                .OrderBy(y => y));
+                .OrderBy(y => y);
 
             return PartialView(groups);
         }
