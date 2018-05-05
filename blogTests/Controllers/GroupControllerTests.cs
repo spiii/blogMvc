@@ -29,10 +29,20 @@ namespace blog.Controllers.Tests
             Assert.AreEqual(results[1], "group E");
         }
 
-        [Test()]
-        public void MenueTest()
+        [Test(Description ="Set css class on the selected group.")]
+        public void canSelectGroup()
         {
-            Assert.Fail();
+            // Arrange
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
+
+            // Arrange
+            GroupController target = new GroupController(mock.Object);
+            string selectedGroup = "group E";
+
+            // Action
+            string result = target.Menue(selectedGroup).ViewBag.SelectedGroup;
+            // Assert
+            Assert.AreEqual(selectedGroup, result);
         }
     }
 }
