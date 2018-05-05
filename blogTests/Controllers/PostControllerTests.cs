@@ -9,6 +9,7 @@ using Moq;
 using blogBl.Abstract;
 using blogBl;
 using blog.Models;
+using blogTests;
 
 namespace blog.Controllers.Tests
 {
@@ -19,13 +20,13 @@ namespace blog.Controllers.Tests
         public void canSendPaginationViewModel()
         {
             // Arrange
-            Mock<IPostRepository> mock = createMockObject();
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
 
             // Arrange
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;
             // Act
-            PostsListViewModel result = (PostsListViewModel)controller.List(null,2).Model;
+            PostsListViewModel result = (PostsListViewModel)controller.List(null, 2).Model;
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
             Assert.AreEqual(pageInfo.currentPage, 2);
@@ -37,17 +38,17 @@ namespace blog.Controllers.Tests
         public void canFilterPosts()
         {
             // Arrange
-            Mock<IPostRepository> mock = createMockObject();
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;
-            
+
             // Action
             Post[] result = ((PostsListViewModel)controller.List("group E", 1).Model)
             .posts.ToArray();
             // Assert
             Assert.AreEqual(result.Length, 2);
             Assert.IsTrue(result[0].title == "P2" && result[0].groups.Select(x => x.groupName).Contains("group E"));
-            Assert.IsTrue(result[1].title == "P4" && result[1].groups.Select(x=>x.groupName).Contains("group E"));
+            Assert.IsTrue(result[1].title == "P4" && result[1].groups.Select(x => x.groupName).Contains("group E"));
 
         }
 
@@ -55,29 +56,18 @@ namespace blog.Controllers.Tests
         public void canPaginate()
         {
             // Arrange
-            Mock<IPostRepository> mock = createMockObject();
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
 
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;
             // Act
-            PostsListViewModel result = (PostsListViewModel)controller.List(null,2).Model;
+            PostsListViewModel result = (PostsListViewModel)controller.List(null, 2).Model;
             // Assert
             Post[] _posts = result.posts.ToArray();
             Assert.IsTrue(_posts.Length == 2);
             Assert.AreEqual(_posts[0].title, "P4");
             Assert.AreEqual(_posts[1].title, "P5");
         }
-        private static Mock<IPostRepository> createMockObject()
-        {
-            Mock<IPostRepository> mock = new Mock<IPostRepository>();
-            mock.Setup(m => m.posts).Returns(new List<Post> {
-                new Post {idPost = 1, title = "P1"},
-                new Post {idPost = 2, title = "P2", groups = new List<Group>{ new Group { groupName = "group E" } } },
-                new Post {idPost = 3, title = "P3"},
-                new Post {idPost = 4, title = "P4",groups = new List<Group>{ new Group { groupName = "group E" } } },
-                new Post {idPost = 5, title = "P5"}
-                });
-            return mock;
-        }
+
     }
 }
