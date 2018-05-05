@@ -28,5 +28,11 @@ namespace blog.Controllers.Tests
             Assert.AreEqual(results[0], "group A");
             Assert.AreEqual(results[1], "group E");
         }
+
+        [Test()]
+        public void MenueTest()
+        {
+            Assert.Fail();
+        }
     }
 }

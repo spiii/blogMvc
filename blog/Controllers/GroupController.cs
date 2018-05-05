@@ -17,8 +17,10 @@ namespace blog.Controllers
         }
 
         // GET: Menue
-        public PartialViewResult Menue()
+        public PartialViewResult Menue(string group = null)
         {
+            ViewBag.SelectedGroup = group;
+
             IEnumerable<string> groups = this.repository.posts
                 .SelectMany(x => x.groups.Select(y => y.groupName))
                 .Distinct()
