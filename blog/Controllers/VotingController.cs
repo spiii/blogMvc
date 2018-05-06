@@ -17,7 +17,7 @@ namespace blog.Controllers
             repository = repo;
         }
 
-        public ViewResult Index(Voting voting,string returnUrl)
+        public ViewResult Index(Voting voting, string returnUrl)
         {
             return View(new VotingIndexViewModel
             {
@@ -26,7 +26,7 @@ namespace blog.Controllers
             });
         }
 
-        public RedirectToRouteResult voteUp(Voting voting,int idPost, string returnUrl)
+        public RedirectToRouteResult voteUp(Voting voting, int idPost, string returnUrl)
         {
             Post post = repository.posts
             .FirstOrDefault(p => p.idPost == idPost);
@@ -36,7 +36,7 @@ namespace blog.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-        public RedirectToRouteResult voteDown(Voting voting,int idPost, string returnUrl)
+        public RedirectToRouteResult voteDown(Voting voting, int idPost, string returnUrl)
         {
             Post post = repository.posts
              .FirstOrDefault(p => p.idPost == idPost);
@@ -45,6 +45,23 @@ namespace blog.Controllers
                 voting.downVote(post, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
+        }
+
+        public RedirectToRouteResult removeVoting(Voting voting, int idPost, string returnUrl)
+        {
+            int userId = 1;
+            Post post = repository.posts
+            .FirstOrDefault(p => p.idPost == idPost);
+            if (post != null)
+            {
+                voting.removeLine(post,userId);
+            }
+            return RedirectToAction("Index", new { returnUrl });
+        }
+
+        public PartialViewResult summary(Voting voting)
+        {
+            return PartialView(voting);
         }
 
     }
