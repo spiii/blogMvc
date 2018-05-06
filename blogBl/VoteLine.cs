@@ -9,5 +9,12 @@ namespace blogBl
         public int quantity { get; set; }
         public int userId { get; set; }
         public bool upVote { get; set; }
+        public string upVoteText
+        {
+            get
+            {
+                return this.upVote == true ? "up" : "down";
+            }
+        }
     }
 }

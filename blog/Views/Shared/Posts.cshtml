@@ -14,5 +14,26 @@
 		}
 	</h4>
 
+	@using (Html.BeginForm("voteUp", "Voting"))
+	{
+		<div class="">
+			@Html.HiddenFor(x => x.idPost)
+			@Html.Hidden("userId", 1)
+			@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+			<input type="submit" class="btn btn-success" value="upVote" />
+		</div>
+	}
+
+	@using (Html.BeginForm("voteDown", "Voting"))
+	{
+		<div class="">
+			@Html.HiddenFor(x => x.idPost)
+			@Html.Hidden("userId", 1)
+			@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+			<input type="submit" class="btn btn-warning" value="downVote" />
+		</div>
+	}
+
+
 </div>
 
