@@ -18,11 +18,11 @@ namespace blogData
         public post()
         {
             this.link = new HashSet<link>();
-            this.rating = new HashSet<rating>();
             this.link1 = new HashSet<link>();
             this.picture = new HashSet<picture>();
             this.prose = new HashSet<prose>();
             this.group = new HashSet<group>();
+            this.vote = new HashSet<vote>();
         }
     
         public int idPost { get; set; }
@@ -33,8 +33,6 @@ namespace blogData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<link> link { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rating> rating { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<link> link1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<picture> picture { get; set; }
@@ -42,5 +40,7 @@ namespace blogData
         public virtual ICollection<prose> prose { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<group> group { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<vote> vote { get; set; }
     }
 }

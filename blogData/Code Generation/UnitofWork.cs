@@ -31,6 +31,11 @@ public class UnitOfWork : IUnitOfWork
         get { return new PictureRepository(_context); }
     }
 
+    public IGroupRepository groups
+    {
+        get { return new GroupRepository(_context); }
+    }
+
     public ILinkRepository links
     {
         get { return new LinkRepository(_context); }
@@ -41,9 +46,9 @@ public class UnitOfWork : IUnitOfWork
         get { return new RatingRepository(_context); }
     }
 
-    public IGroupRepository groups
+    public IVoteRepository votes
     {
-        get { return new GroupRepository(_context); }
+        get { return new VoteRepository(_context); }
     }
 
     
