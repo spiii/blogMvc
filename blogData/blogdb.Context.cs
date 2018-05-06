@@ -29,7 +29,7 @@ namespace blogData
         public virtual DbSet<picture> picture { get; set; }
         public virtual DbSet<post> post { get; set; }
         public virtual DbSet<prose> prose { get; set; }
-        public virtual DbSet<rating> rating { get; set; }
         public virtual DbSet<group> group { get; set; }
+        public virtual DbSet<vote> vote { get; set; }
     }
 }

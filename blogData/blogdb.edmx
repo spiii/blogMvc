@@ -60,6 +60,16 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <Property Name="idProse" Type="int" Nullable="false" />
           <Property Name="idPost" Type="int" Nullable="false" />
         </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapVotePost' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="mapVotePost">
+          <Key>
+            <PropertyRef Name="idVote" />
+            <PropertyRef Name="idPost" />
+          </Key>
+          <Property Name="idVote" Type="int" Nullable="false" />
+          <Property Name="idPost" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="picture">
           <Key>
             <PropertyRef Name="idPicture" />
@@ -93,14 +103,14 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <Property Name="text3" Type="nvarchar(max)" />
           <Property Name="text4" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="rating">
+        <EntityType Name="vote">
           <Key>
-            <PropertyRef Name="idRating" />
+            <PropertyRef Name="idVote" />
           </Key>
-          <Property Name="idRating" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="timestamp" Type="smalldatetime" Nullable="false" />
-          <Property Name="idPost" Type="int" Nullable="false" />
-          <Property Name="rate" Type="int" Nullable="false" />
+          <Property Name="upVote" Type="bit" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_link_post">
           <End Role="post" Type="Self.post" Multiplicity="1" />
@@ -210,15 +220,27 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_rating_post">
+        <Association Name="FK_mapVotePost_post">
           <End Role="post" Type="Self.post" Multiplicity="1" />
-          <End Role="rating" Type="Self.rating" Multiplicity="*" />
+          <End Role="mapVotePost" Type="Self.mapVotePost" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="post">
               <PropertyRef Name="idPost" />
             </Principal>
-            <Dependent Role="rating">
+            <Dependent Role="mapVotePost">
               <PropertyRef Name="idPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mapVotePost_vote">
+          <End Role="vote" Type="Self.vote" Multiplicity="1" />
+          <End Role="mapVotePost" Type="Self.mapVotePost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vote">
+              <PropertyRef Name="idVote" />
+            </Principal>
+            <Dependent Role="mapVotePost">
+              <PropertyRef Name="idVote" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -228,7 +250,7 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <EntitySet Name="picture" EntityType="Self.picture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="prose" EntityType="Self.prose" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vote" EntityType="Self.vote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mapGroupPost" EntityType="Self.mapGroupPost" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [mapGroupPost].[idGroup] AS [idGroup], 
@@ -252,6 +274,12 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
     [mapProsePost].[idProse] AS [idProse], 
     [mapProsePost].[idPost] AS [idPost]
     FROM [dbo].[mapProsePost] AS [mapProsePost]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="mapVotePost" EntityType="Self.mapVotePost" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [mapVotePost].[idVote] AS [idVote], 
+    [mapVotePost].[idPost] AS [idPost]
+    FROM [dbo].[mapVotePost] AS [mapVotePost]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_link_post" Association="Self.FK_link_post">
             <End Role="post" EntitySet="post" />
@@ -289,9 +317,13 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
             <End Role="prose" EntitySet="prose" />
             <End Role="mapProsePost" EntitySet="mapProsePost" />
           </AssociationSet>
-          <AssociationSet Name="FK_rating_post" Association="Self.FK_rating_post">
+          <AssociationSet Name="FK_mapVotePost_post" Association="Self.FK_mapVotePost_post">
             <End Role="post" EntitySet="post" />
-            <End Role="rating" EntitySet="rating" />
+            <End Role="mapVotePost" EntitySet="mapVotePost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mapVotePost_vote" Association="Self.FK_mapVotePost_vote">
+            <End Role="vote" EntitySet="vote" />
+            <End Role="mapVotePost" EntitySet="mapVotePost" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -303,14 +335,9 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <EntitySet Name="picture" EntityType="blogDbModel.picture" />
           <EntitySet Name="post" EntityType="blogDbModel.post" />
           <EntitySet Name="prose" EntityType="blogDbModel.prose" />
-          <EntitySet Name="rating" EntityType="blogDbModel.rating" />
           <AssociationSet Name="FK_link_post" Association="blogDbModel.FK_link_post">
             <End Role="post" EntitySet="post" />
             <End Role="link" EntitySet="link" />
-          </AssociationSet>
-          <AssociationSet Name="FK_rating_post" Association="blogDbModel.FK_rating_post">
-            <End Role="post" EntitySet="post" />
-            <End Role="rating" EntitySet="rating" />
           </AssociationSet>
           <AssociationSet Name="mapLinkPost" Association="blogDbModel.mapLinkPost">
             <End Role="link" EntitySet="link" />
@@ -328,6 +355,11 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <AssociationSet Name="mapGroupPost" Association="blogDbModel.mapGroupPost">
             <End Role="group" EntitySet="group" />
             <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <EntitySet Name="vote" EntityType="blogDbModel.vote" />
+          <AssociationSet Name="mapVotePost" Association="blogDbModel.mapVotePost">
+            <End Role="post" EntitySet="post" />
+            <End Role="vote" EntitySet="vote" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="link">
@@ -363,11 +395,11 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="lastUpdate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="link" Relationship="blogDbModel.FK_link_post" FromRole="post" ToRole="link" />
-          <NavigationProperty Name="rating" Relationship="blogDbModel.FK_rating_post" FromRole="post" ToRole="rating" />
           <NavigationProperty Name="link1" Relationship="blogDbModel.mapLinkPost" FromRole="post" ToRole="link" />
           <NavigationProperty Name="picture" Relationship="blogDbModel.mapPicturePost" FromRole="post" ToRole="picture" />
           <NavigationProperty Name="prose" Relationship="blogDbModel.mapProsePost" FromRole="post" ToRole="prose" />
           <NavigationProperty Name="group" Relationship="blogDbModel.mapGroupPost" FromRole="post" ToRole="group" />
+          <NavigationProperty Name="vote" Relationship="blogDbModel.mapVotePost" FromRole="post" ToRole="vote" />
         </EntityType>
         <EntityType Name="prose">
           <Key>
@@ -381,16 +413,6 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
           <Property Name="text4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="post" Relationship="blogDbModel.mapProsePost" FromRole="prose" ToRole="post" />
         </EntityType>
-        <EntityType Name="rating">
-          <Key>
-            <PropertyRef Name="idRating" />
-          </Key>
-          <Property Name="idRating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="idPost" Type="Int32" Nullable="false" />
-          <Property Name="rate" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="post" Relationship="blogDbModel.FK_rating_post" FromRole="rating" ToRole="post" />
-        </EntityType>
         <Association Name="FK_link_post">
           <End Type="blogDbModel.post" Role="post" Multiplicity="1" />
           <End Type="blogDbModel.link" Role="link" Multiplicity="*" />
@@ -399,18 +421,6 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
               <PropertyRef Name="idPost" />
             </Principal>
             <Dependent Role="link">
-              <PropertyRef Name="idPost" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_rating_post">
-          <End Type="blogDbModel.post" Role="post" Multiplicity="1" />
-          <End Type="blogDbModel.rating" Role="rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="post">
-              <PropertyRef Name="idPost" />
-            </Principal>
-            <Dependent Role="rating">
               <PropertyRef Name="idPost" />
             </Dependent>
           </ReferentialConstraint>
@@ -438,6 +448,20 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
         <Association Name="mapGroupPost">
           <End Type="blogDbModel.group" Role="group" Multiplicity="*" />
           <End Type="blogDbModel.post" Role="post" Multiplicity="*" />
+        </Association>
+        <EntityType Name="vote">
+          <Key>
+            <PropertyRef Name="idVote" />
+          </Key>
+          <Property Name="idVote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="upVote" Type="Boolean" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="post" Relationship="blogDbModel.mapVotePost" FromRole="vote" ToRole="post" />
+        </EntityType>
+        <Association Name="mapVotePost">
+          <End Type="blogDbModel.post" Role="post" Multiplicity="*" />
+          <End Type="blogDbModel.vote" Role="vote" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -490,16 +514,6 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="rating">
-            <EntityTypeMapping TypeName="blogDbModel.rating">
-              <MappingFragment StoreEntitySet="rating">
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="idPost" ColumnName="idPost" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="idRating" ColumnName="idRating" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="mapLinkPost" TypeName="blogDbModel.mapLinkPost" StoreEntitySet="mapLinkPost">
             <EndProperty Name="post">
               <ScalarProperty Name="idPost" ColumnName="idPost" />
@@ -538,6 +552,24 @@ Warnung 6002: Für Tabelle/Sicht 'blogDb.dbo.mapProsePost' ist kein Primärschl�
             </EndProperty>
             <EndProperty Name="group">
               <ScalarProperty Name="idGroup" ColumnName="idGroup" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="vote">
+            <EntityTypeMapping TypeName="blogDbModel.vote">
+              <MappingFragment StoreEntitySet="vote">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="upVote" ColumnName="upVote" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="idVote" ColumnName="idVote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="mapVotePost" TypeName="blogDbModel.mapVotePost" StoreEntitySet="mapVotePost">
+            <EndProperty Name="vote">
+              <ScalarProperty Name="idVote" ColumnName="idVote" />
+            </EndProperty>
+            <EndProperty Name="post">
+              <ScalarProperty Name="idPost" ColumnName="idPost" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
