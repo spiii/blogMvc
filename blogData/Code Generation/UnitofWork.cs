@@ -41,16 +41,6 @@ public class UnitOfWork : IUnitOfWork
         get { return new LinkRepository(_context); }
     }
 
-    public IRatingRepository ratings
-    {
-        get { return new RatingRepository(_context); }
-    }
-
-    public IVoteRepository votes
-    {
-        get { return new VoteRepository(_context); }
-    }
-
     
     public void Save()
     {
