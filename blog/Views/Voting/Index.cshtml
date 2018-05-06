@@ -1,0 +1,35 @@
+﻿@model blog.Models.VotingIndexViewModel
+@{
+	ViewBag.Title = "Your Voting";
+}
+<h2>Your voting</h2>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Voting</th>
+			<th>Up/Down</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var line in Model.voting.lines)
+		{
+			<tr>
+				<td class="text-center">@line.post.title</td>
+				<td class="text-left">@line.quantity</td>
+				<td class="text-right">@line.upVoteText</td>
+			</tr>
+		}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3" class="text-right">Total:</td>
+			<td class="text-right">
+				@Model.voting.lines.Count()
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<div class="text-center">
+	<a class="btn btn-primary" href="@Model.returnUrl">go back</a>
+</div>

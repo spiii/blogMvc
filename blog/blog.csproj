@@ -178,6 +178,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="helpers\MainHelper.cs" />
     <Compile Include="helpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Binders\VotingModelBinder.cs" />
@@ -188,6 +189,7 @@
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\PostsListViewModel.cs" />
+    <Compile Include="Models\VotingIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +233,7 @@
     <Content Include="Views\Shared\Posts.cshtml" />
     <Content Include="Views\Shared\Groups.cshtml" />
     <Content Include="Views\Group\Menue.cshtml" />
+    <Content Include="Views\Voting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

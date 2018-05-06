@@ -7,7 +7,5 @@ public interface IUnitOfWork : IDisposable
     IPictureRepository pictures { get; }
     IGroupRepository groups { get; }
     ILinkRepository links { get; }
-    IRatingRepository ratings { get; }
-    IVoteRepository votes { get; }
     void Save();
 }

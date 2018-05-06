@@ -19,7 +19,7 @@ namespace blog
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             // Register the binder.
-            ModelBinders.Binders.Add(typeof(Group), new VotingModelBinder());
+            ModelBinders.Binders.Add(typeof(Voting), new VotingModelBinder());
         }
     }
 }
