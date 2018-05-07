@@ -12,9 +12,12 @@ namespace blog.Controllers
     public class VotingController : Controller
     {
         private IPostRepository repository;
-        public VotingController(IPostRepository repo)
+        private IVotingProcessor processor;
+
+        public VotingController(IPostRepository repo, IVotingProcessor proc)
         {
-            repository = repo;
+            this.repository = repo;
+            this.processor = proc;
         }
 
         public ViewResult Index(Voting voting, string returnUrl)
@@ -62,6 +65,21 @@ namespace blog.Controllers
         public PartialViewResult summary(Voting voting)
         {
             return PartialView(voting);
+        }
+
+
+        public ViewResult save(Voting voting)
+        {
+            if (!voting.lines.Any())
+            {
+                ModelState.AddModelError("", "Sorry, your didn´t made any votings.");
+            }
+            else
+            {
+                processor.processVoting(voting);
+                voting.removeLines();
+            }
+            return View("Completed");
         }
 
     }

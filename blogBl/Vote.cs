@@ -59,5 +59,10 @@ namespace blogBl
         {
             this.lines.RemoveAll(x=>x.post == post && x.userId == userId);
         }
+
+        public void removeLines()
+        {
+            this.lines.Clear();
+        }
     }
 }

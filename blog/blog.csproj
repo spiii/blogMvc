@@ -235,6 +235,7 @@
     <Content Include="Views\Group\Menue.cshtml" />
     <Content Include="Views\Voting\Index.cshtml" />
     <Content Include="Views\Voting\Summary.cshtml" />
+    <Content Include="Views\Voting\Completed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

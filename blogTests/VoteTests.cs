@@ -20,8 +20,8 @@ namespace blogBl.Tests
             Voting target = new Voting();
 
             // Act
-            target.upVote(p1,userId);
-            target.upVote(p2,userId);
+            target.upVote(p1, userId);
+            target.upVote(p2, userId);
             VoteLine[] results = target.lines.ToArray();
             // Assert
             Assert.AreEqual(results.Length, 2);
@@ -48,8 +48,8 @@ namespace blogBl.Tests
             Voting target = new Voting();
 
             // Act
-            target.upVote(p1,otherUserId);
-            target.upVote(p1,userId);
+            target.upVote(p1, otherUserId);
+            target.upVote(p1, userId);
             VoteLine[] results = target.lines.ToArray();
 
             // Assert
@@ -73,6 +73,23 @@ namespace blogBl.Tests
 
             // Assert
             Assert.AreEqual(results[0].quantity, 2);
+        }
+
+        [Test()]
+        public void removeLinesTest()
+        {
+            // Arrange
+            Post p1, p2;
+
+            createPosts(out p1, out p2);
+            Voting target = new Voting();
+
+            // Act
+            target.removeLines();
+            VoteLine[] results = target.lines.ToArray();
+
+            // Assert
+            Assert.AreEqual(results.Count(), 0);
         }
     }
 }

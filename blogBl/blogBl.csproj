@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IPostRepository.cs" />
+    <Compile Include="Abstract\IVotingProcessor.cs" />
+    <Compile Include="Concrete\VotingProcessor.cs" />
+    <Compile Include="EmailSettings.cs" />
     <Compile Include="Vote.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Post.cs" />
