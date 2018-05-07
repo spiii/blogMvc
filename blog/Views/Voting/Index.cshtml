@@ -2,8 +2,15 @@
 @{
 	ViewBag.Title = "Your Voting";
 }
+
+<style>
+	#votingTable td {
+		vertical-align: middle;
+	}
+</style>
+
 <h2>Your voting</h2>
-<table class="table">
+<table id="votingTable" class="table">
 	<thead>
 		<tr>
 			<th>Item</th>
@@ -18,6 +25,15 @@
 				<td class="text-center">@line.post.title</td>
 				<td class="text-left">@line.quantity</td>
 				<td class="text-right">@line.upVoteText</td>
+				<td>
+					@using (Html.BeginForm("removeVoting", "Voting"))
+					{
+						@Html.Hidden("idPost", line.post.idPost)
+						@Html.HiddenFor(x => x.returnUrl)
+						<input class="btn btn-sm btn-warning"
+							   type="submit" value="Remove" />
+					}
+				</td>
 			</tr>
 		}
 	</tbody>
@@ -32,4 +48,5 @@
 </table>
 <div class="text-center">
 	<a class="btn btn-primary" href="@Model.returnUrl">go back</a>
+	@Html.ActionLink("Save", "save", null, new { @class = "btn btn-primary" })
 </div>

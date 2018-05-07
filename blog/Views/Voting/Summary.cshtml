@@ -1,0 +1,11 @@
+﻿@model blogBl.Voting
+
+<div class="navbar-right">
+	@Html.ActionLink("speichern", "Index", "Voting",
+	new { returnUrl = Request.Url.PathAndQuery },
+	new { @class = "btn btn-default navbar-btn" })
+</div>
+<div class="navbar-text navbar-right">
+	<b>Your voting:</b>
+	@Model.lines.Sum(x => x.quantity) item(s)
+</div>

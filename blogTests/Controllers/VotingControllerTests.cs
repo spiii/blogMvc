@@ -23,11 +23,12 @@ namespace blog.Controllers.Tests
             // Arrange
             Mock<IPostRepository> mock = TestHelper.createMockObject();
             Voting voting = new Voting();
-            VotingController target = new VotingController(mock.Object);
+            Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
+            VotingController target = new VotingController(mock.Object, mock_p.Object);
 
             // Act 
-            target.voteUp(voting, 1,null);
-            
+            target.voteUp(voting, 1, null);
+
             // Assert
             Assert.AreEqual(voting.lines.Count(), 1);
             Assert.AreEqual(voting.lines.ToArray()[0].post.idPost, 1);
@@ -40,7 +41,8 @@ namespace blog.Controllers.Tests
             // Arrange
             Mock<IPostRepository> mock = TestHelper.createMockObject();
             Voting voting = new Voting();
-            VotingController target = new VotingController(mock.Object);
+            Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
+            VotingController target = new VotingController(mock.Object, mock_p.Object);
 
             // Act 
             target.voteDown(voting, 1, null);
@@ -58,7 +60,8 @@ namespace blog.Controllers.Tests
             // Arrange
             Mock<IPostRepository> mock = TestHelper.createMockObject();
             Voting voting = new Voting();
-            VotingController target = new VotingController(mock.Object);
+            Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
+            VotingController target = new VotingController(mock.Object, mock_p.Object);
 
             // Act
             RedirectToRouteResult result = target.voteUp(voting, 2, "myUrl");
@@ -73,13 +76,50 @@ namespace blog.Controllers.Tests
             // Arrange
             Mock<IPostRepository> mock = TestHelper.createMockObject();
             Voting voting = new Voting();
-            VotingController target = new VotingController(mock.Object);
+            Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
+            VotingController target = new VotingController(mock.Object, mock_p.Object);
 
             // Act
             VotingIndexViewModel result = (VotingIndexViewModel)target.Index(voting, "myUrl").ViewData.Model;
             // Assert
             Assert.AreSame(result.voting, voting);
             Assert.AreEqual(result.returnUrl, "myUrl");
+        }
+
+        [Test()]
+        public void cannotSaveEmptyVotings()
+        {
+            // Arrange
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Voting voting = new Voting();
+            Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
+            VotingController target = new VotingController(mock.Object, mock_p.Object);
+
+            // Act
+            ViewResult result = target.save(voting);
+            // Assert
+            mock_p.Verify(m => m.processVoting(It.IsAny<Voting>()),Times.Never());
+            Assert.AreEqual("Completed", result.ViewName);
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
+
+        [Test()]
+        public void canSaveVotings()
+        {
+            // Arrange
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Voting voting = new Voting();
+            voting.upVote(new Post(), 1);
+            Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
+            VotingController target = new VotingController(mock.Object, mock_p.Object);
+
+            // Act
+            ViewResult result = target.save(voting);
+            // Assert
+            mock_p.Verify(m => m.processVoting(It.IsAny<Voting>()),Times.Once());
+            Assert.AreEqual("Completed", result.ViewName);
+            Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
+
         }
     }
 }

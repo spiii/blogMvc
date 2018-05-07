@@ -50,9 +50,19 @@ namespace blogBl
             }
         }
 
-        public IEnumerable<VoteLine> lines
+        public List<VoteLine> lines
         {
             get { return lineCollection; }
+        }
+
+        public void removeLine(Post post, int userId)
+        {
+            this.lines.RemoveAll(x=>x.post == post && x.userId == userId);
+        }
+
+        public void removeLines()
+        {
+            this.lines.Clear();
         }
     }
 }
