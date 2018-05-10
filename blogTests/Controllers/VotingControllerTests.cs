@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using blogBl;
-using blogTests;
 using Moq;
 using blogBl.Abstract;
 using System.Web.Mvc;
 using blog.Models;
+using blog.helpers;
 
 namespace blog.Controllers.Tests
 {
@@ -21,7 +21,7 @@ namespace blog.Controllers.Tests
         public void voteUpTest()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             Voting voting = new Voting();
             Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
             VotingController target = new VotingController(mock.Object, mock_p.Object);
@@ -39,7 +39,7 @@ namespace blog.Controllers.Tests
         public void voteDownTest()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             Voting voting = new Voting();
             Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
             VotingController target = new VotingController(mock.Object, mock_p.Object);
@@ -58,7 +58,7 @@ namespace blog.Controllers.Tests
         public void votePostUpAndShowVoting()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             Voting voting = new Voting();
             Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
             VotingController target = new VotingController(mock.Object, mock_p.Object);
@@ -74,7 +74,7 @@ namespace blog.Controllers.Tests
         public void canViewVotings()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             Voting voting = new Voting();
             Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
             VotingController target = new VotingController(mock.Object, mock_p.Object);
@@ -90,7 +90,7 @@ namespace blog.Controllers.Tests
         public void cannotSaveEmptyVotings()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             Voting voting = new Voting();
             Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();
             VotingController target = new VotingController(mock.Object, mock_p.Object);
@@ -107,7 +107,7 @@ namespace blog.Controllers.Tests
         public void canSaveVotings()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             Voting voting = new Voting();
             voting.upVote(new Post(), 1);
             Mock<IVotingProcessor> mock_p = new Mock<IVotingProcessor>();

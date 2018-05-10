@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using blogBl;
 using Moq;
 using blogBl.Abstract;
-using blogTests;
+using blog.helpers;
 
 namespace blog.Controllers.Tests
 {
@@ -19,8 +19,9 @@ namespace blog.Controllers.Tests
         public void IndexTest()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
-            AdminController target = new AdminController(mock.Object);
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
+            Mock<IGroupRepository> mockGroup = MockCreatorHelper.createGroupMockObject();
+            AdminController target = new AdminController(mock.Object,mockGroup.Object);
             // Action
             Post[] result = ((IEnumerable<Post>)target.Index().ViewData.Model).ToArray();
             // Assert
@@ -36,8 +37,9 @@ namespace blog.Controllers.Tests
         public void EditTest()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
-            AdminController target = new AdminController(mock.Object);
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
+            Mock<IGroupRepository> mockGroup = MockCreatorHelper.createGroupMockObject();
+            AdminController target = new AdminController(mock.Object, mockGroup.Object);
             // Action
             Post p1 = target.Edit(1).ViewData.Model as Post;
             Post p2 = target.Edit(2).ViewData.Model as Post;
@@ -52,8 +54,9 @@ namespace blog.Controllers.Tests
         public void canNotEditTest()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
-            AdminController target = new AdminController(mock.Object);
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
+            Mock<IGroupRepository> mockGroup = MockCreatorHelper.createGroupMockObject();
+            AdminController target = new AdminController(mock.Object, mockGroup.Object);
             // Action
             Post result = target.Edit(50).ViewData.Model as Post;
             // Assert

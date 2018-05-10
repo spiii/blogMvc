@@ -9,7 +9,7 @@ using Moq;
 using blogBl.Abstract;
 using blogBl;
 using blog.Models;
-using blogTests;
+using blog.helpers;
 
 namespace blog.Controllers.Tests
 {
@@ -20,7 +20,7 @@ namespace blog.Controllers.Tests
         public void canSendPaginationViewModel()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
 
             // Arrange
             PostController controller = new PostController(mock.Object);
@@ -38,7 +38,7 @@ namespace blog.Controllers.Tests
         public void canFilterPosts()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;
 
@@ -56,7 +56,7 @@ namespace blog.Controllers.Tests
         public void canPaginate()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
 
             PostController controller = new PostController(mock.Object);
             controller.pageSize = 3;

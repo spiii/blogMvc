@@ -34,5 +34,22 @@ namespace blog.Controllers
 
             return View(posts);
         }
+
+        [HttpPost]
+        public ActionResult Edit(Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.savePost(post);
+                TempData["message"] = string.Format("{0} has been saved", post.title);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+            }
+            // there is something wrong with the data values
+            return View(post);
+        }
+
     }
 }

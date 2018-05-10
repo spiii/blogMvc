@@ -96,9 +96,9 @@
     <Compile Include="Controllers\VotingControllerTests.cs" />
     <Compile Include="GroupTests.cs" />
     <Compile Include="helpers\MainHelperTests.cs" />
+    <Compile Include="helpers\MockCreatorHelperTests.cs" />
     <Compile Include="helpers\PagingHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHelper.cs" />
     <Compile Include="VoteTests.cs" />
   </ItemGroup>
   <ItemGroup>

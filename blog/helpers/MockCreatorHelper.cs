@@ -1,4 +1,5 @@
-﻿using blogBl;
+﻿using blog.helpers;
+using blogBl;
 using blogBl.Abstract;
 using Moq;
 using System;
@@ -7,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace blogTests
+namespace blog.helpers
 {
-    public static class TestHelper
+    public static class MockCreatorHelper
     {
         public static Mock<IPostRepository> createMockObject()
         {
@@ -33,6 +34,33 @@ namespace blogTests
                 });
             return mock;
         }
+
+        public static Mock<IGroupRepository> createGroupMockObject()
+        {
+            Mock<IGroupRepository> mockGroups = new Mock<IGroupRepository>();
+            List<Group> groups = new List<Group>();
+            createGroups(groups, 0, 10);
+
+            mockGroups.Setup(m => m.groups).Returns(groups);
+            return mockGroups;
+        }
+        public static List<Post> createPosts(List<Group> groups, List<Group> groupsSec)
+        {
+            List<Post> posts = new List<Post>();
+
+            for (int i = 0; i < 30; i++)
+                posts.Add(new Post { title = $"Post title {i}", idPost = i, groups = i % 2 == 0 ? groups : groupsSec });
+            return posts;
+        }
+
+        public static void createGroups(List<Group> groups, int start, int end)
+        {
+            for (int i = start; i < end; i++)
+            {
+                groups.Add(new Group { groupName = $"group {MainHelper.number2String(i + 1, true)}", idGroup = i });
+            }
+        }
+
 
     }
 }

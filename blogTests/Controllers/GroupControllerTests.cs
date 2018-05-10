@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using blogTests;
+
 using Moq;
 using blogBl.Abstract;
+using blog.helpers;
 
 namespace blog.Controllers.Tests
 {
@@ -18,7 +19,7 @@ namespace blog.Controllers.Tests
         public void canCreateGroups()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
             GroupController target = new GroupController(mock.Object);
             // Act
             string[] results = ((IEnumerable<string>)target.Menue().Model).ToArray();
@@ -32,7 +33,7 @@ namespace blog.Controllers.Tests
         public void canSelectGroup()
         {
             // Arrange
-            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            Mock<IPostRepository> mock = MockCreatorHelper.createMockObject();
 
             // Arrange
             GroupController target = new GroupController(mock.Object);

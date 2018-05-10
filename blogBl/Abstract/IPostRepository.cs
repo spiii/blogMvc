@@ -10,6 +10,7 @@ namespace blogBl.Abstract
     public interface IPostRepository
     {
         IEnumerable<Post> posts { get; }
+        void savePost(Post post);
     }
 
 }

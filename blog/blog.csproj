@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="helpers\MainHelper.cs" />
+    <Compile Include="helpers\MockCreatorHelper.cs" />
     <Compile Include="helpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Binders\VotingModelBinder.cs" />
     <Compile Include="Models\PagingInfo.cs" />
