@@ -47,7 +47,6 @@ namespace blog.Controllers
             else
             {
             }
-            // there is something wrong with the data values
             return View(post);
         }
 
