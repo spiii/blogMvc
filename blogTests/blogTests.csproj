@@ -90,6 +90,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\AdminControllerTests.cs" />
     <Compile Include="Controllers\GroupControllerTests.cs" />
     <Compile Include="Controllers\PostControllerTests.cs" />
     <Compile Include="Controllers\VotingControllerTests.cs" />
