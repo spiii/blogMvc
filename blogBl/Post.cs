@@ -13,6 +13,8 @@ namespace blogBl
         [HiddenInput(DisplayValue = false)]
         public int idPost { get; set; }
         public string title { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string description { get; set; }
         public List<Group> groups { get; set; }
 
     }

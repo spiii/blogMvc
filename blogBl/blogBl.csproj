@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IGroupRepository.cs" />
     <Compile Include="Abstract\IPostRepository.cs" />
     <Compile Include="Abstract\IVotingProcessor.cs" />
     <Compile Include="Concrete\VotingProcessor.cs" />

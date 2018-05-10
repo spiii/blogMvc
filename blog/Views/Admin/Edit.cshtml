@@ -24,6 +24,7 @@
 
 					if (property.PropertyName == "groups")
 					{
+						<label>@(property.DisplayName ?? property.PropertyName)</label>
 						foreach (var group in ViewBag.allGroups)
 						{
 							<div class="checkbox">
@@ -33,21 +34,27 @@
 										   @group.getCheckedAttribute(Model.groups) /> @group.groupName
 									</label>
 								</div>
-						}
-
-					}
-					else
-					{
-						<div class="form-group">
-							<label>@(property.DisplayName ?? property.PropertyName)</label>
-							@{
-								@Html.TextBox(property.PropertyName, null,
-												new { @class = "form-control" })
 							}
-						</div>
+
+						}
+						else
+						{
+							<div class="form-group">
+								<label>@(property.DisplayName ?? property.PropertyName)</label>
+								@if (property.PropertyName == "description")
+								{
+									@Html.TextArea(property.PropertyName, null,
+									new { @class = "form-control", rows = 5 })
+								}
+								else
+								{
+									@Html.TextBox(property.PropertyName, null,
+									new { @class = "form-control" })
+								}
+							</div>
+						}
 					}
 				}
-			}
 		</div>
 	}
 </div>
