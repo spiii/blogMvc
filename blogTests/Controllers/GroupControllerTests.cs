@@ -19,7 +19,6 @@ namespace blog.Controllers.Tests
         {
             // Arrange
             Mock<IPostRepository> mock = TestHelper.createMockObject();
-            // Arrange
             GroupController target = new GroupController(mock.Object);
             // Act
             string[] results = ((IEnumerable<string>)target.Menue().Model).ToArray();
