@@ -31,5 +31,33 @@ namespace blog.Controllers.Tests
             Assert.AreEqual("P4", result[3].title);
             Assert.AreEqual("P5", result[4].title);
         }
+
+        [Test(Description ="can edit existing posts")]
+        public void EditTest()
+        {
+            // Arrange
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            AdminController target = new AdminController(mock.Object);
+            // Action
+            Post p1 = target.Edit(1).ViewData.Model as Post;
+            Post p2 = target.Edit(2).ViewData.Model as Post;
+            Post p3 = target.Edit(3).ViewData.Model as Post;
+            // Assert
+            Assert.AreEqual(1, p1.idPost);
+            Assert.AreEqual(2, p2.idPost);
+            Assert.AreEqual(3, p3.idPost);
+        }
+
+        [Test(Description = "can not edit non existing posts")]
+        public void canNotEditTest()
+        {
+            // Arrange
+            Mock<IPostRepository> mock = TestHelper.createMockObject();
+            AdminController target = new AdminController(mock.Object);
+            // Action
+            Post result = target.Edit(50).ViewData.Model as Post;
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }

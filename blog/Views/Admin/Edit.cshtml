@@ -1,0 +1,53 @@
+﻿@model blogBl.Post
+@{
+	ViewBag.MainTitle = "Admin: Edit " + @Model.title;
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+	<div class="panel-heading">
+		<input type="submit" value="Save" class="btn btn-primary" />
+		@Html.ActionLink("Cancel and return to List", "Index", null, new {
+		@class = "btn btn-default"
+		})
+
+		<h3>@ViewBag.MainTitle</h3>
+	</div>
+	@using (Html.BeginForm())
+	{
+		<div class="panel-body">
+			@Html.HiddenFor(m => m.idPost)
+			@foreach (var property in ViewData.ModelMetadata.Properties)
+			{
+				if (property.PropertyName != "idPost")
+				{
+
+					if (property.PropertyName == "groups")
+					{
+						foreach (var group in ViewBag.allGroups)
+						{
+							<div class="checkbox">
+								<label>
+									<input type="checkbox"
+										   name="selectedGroups"
+										   @group.getCheckedAttribute(Model.groups) /> @group.groupName
+									</label>
+								</div>
+						}
+
+					}
+					else
+					{
+						<div class="form-group">
+							<label>@(property.DisplayName ?? property.PropertyName)</label>
+							@{
+								@Html.TextBox(property.PropertyName, null,
+												new { @class = "form-control" })
+							}
+						</div>
+					}
+				}
+			}
+		</div>
+	}
+</div>

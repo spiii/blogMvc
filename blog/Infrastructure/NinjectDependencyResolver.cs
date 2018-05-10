@@ -35,6 +35,7 @@ namespace blog.Infrastructure
         {
             // kernel.Bind<IPostRepository>().To<EFPostRepository>();
             Mock<IPostRepository> mock = new Mock<IPostRepository>();
+            Mock<IGroupRepository> mockGroups = new Mock<IGroupRepository>();
 
             List<Group> groups = new List<Group>();
             List<Group> groupsSec = new List<Group>();
@@ -44,9 +45,11 @@ namespace blog.Infrastructure
             List<Post> posts = createPosts(groups, groupsSec);
 
             mock.Setup(m => m.posts).Returns(posts);
+            mockGroups.Setup(m => m.groups).Returns(groups.Concat(groupsSec));
 
             // Bind post repository to mock.
             kernel.Bind<IPostRepository>().ToConstant(mock.Object);
+            kernel.Bind<IGroupRepository>().ToConstant(mockGroups.Object);
             kernel.Bind<IVotingProcessor>().To<VotingProcessor>();
         }
 

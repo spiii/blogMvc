@@ -1,4 +1,5 @@
-﻿using blogBl.Abstract;
+﻿using blogBl;
+using blogBl.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,28 @@ namespace blog.Controllers
     public class AdminController : Controller
     {
         private IPostRepository repository;
+        private IGroupRepository groupRepository;
 
-        public AdminController(IPostRepository repository)
+        public AdminController(IPostRepository repository, IGroupRepository groupRepository)
         {
-            this.repository= repository;
+            this.repository = repository;
+            this.groupRepository = groupRepository;
         }
 
 
         public ViewResult Index()
         {
             return View(repository.posts);
+        }
+
+        public ViewResult Edit(int idPost)
+        {
+            ViewBag.allGroups = this.groupRepository.groups.ToList();
+
+            Post posts = repository.posts
+            .FirstOrDefault(p => p.idPost == idPost);
+
+            return View(posts);
         }
     }
 }
